@@ -1,6 +1,6 @@
 {
   "name": "@exact-team/freekassa-sdk",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "freekassa sdk",
   "scripts": {
     "clean": "rm -rf build",
