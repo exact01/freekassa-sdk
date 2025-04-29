@@ -1,10 +1,8 @@
 name: Deploy lib
 on:
   push:
-    branches: ['main']
-    paths:
-      - 'src/**'
-      - '.github/workflows/deploy-lib.yml'
+    tags:
+      - '*'
 jobs:
   send-start-deploy-telegram-message:
     name: Send Telegram message
