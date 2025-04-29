@@ -11,6 +11,7 @@
 /libs/contract/node_modules
 /libs/contract/dist
 # Logs
+
 logs
 *.log
 npm-debug.log*
