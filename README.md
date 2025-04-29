@@ -186,8 +186,7 @@ const isValid = sdk.verifyNotification({
 ## Требования
 
 - Node.js 18+
-- TypeScript 5.5+
-- Zod 3.24.3
+- TypeScript 5.0 +
 
 ## Разработка
 
