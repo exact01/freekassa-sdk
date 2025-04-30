@@ -1,5 +1,19 @@
 # FreeKassa SDK
 
+![GitHub top language](https://img.shields.io/github/languages/top/exact01/freekassa-sdk)
+![GitHub Repo stars](https://img.shields.io/github/stars/exact01/freekassa-sdk)
+
+![npm version](https://img.shields.io/npm/v/@exact-team/freekassa-sdk)
+![GitHub Tag](https://img.shields.io/github/v/tag/exact01/freekassa-sdk)
+
+![Build Status](https://img.shields.io/github/actions/workflow/status/exact01/freekassa-sdk/.github/workflows/deploy-lib.yml)
+![Downloads](https://img.shields.io/npm/dt/@exact-team/freekassa-sdk)
+![License](https://img.shields.io/npm/l/@exact-team/freekassa-sdk)
+![NPM Last Update](https://img.shields.io/npm/last-update/%40exact-team%2Ffreekassa-sdk)
+
+![Known Vulnerabilities](https://snyk.io/test/github/exact01/freekassa-sdk/badge.svg)
+![Coverage Status](https://img.shields.io/codecov/c/github/exact01/freekassa-sdk)
+
 ## Описание
 
 FreeKassa SDK - это библиотека для работы с платежной системой FreeKassa, которая позволяет интегрировать платежи в ваше приложение. SDK поддерживает как фронтенд, так и бэкенд части приложения.
@@ -232,7 +246,7 @@ ISC
 
 ## Автор
 
-Exact Team
+exact01
 
 ## Поддержка
 
