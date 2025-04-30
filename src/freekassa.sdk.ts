@@ -6,6 +6,8 @@ import {
     CtrConfigCommand,
     ListOrdersCommand,
     NotificationCommand,
+    ListWithdrawalsCommand,
+    CreateWithdrawalCommand,
 } from './commands';
 import { API } from './api/api';
 import { ApiRequestBody } from './interfaces';
@@ -107,7 +109,9 @@ export class Freekassa {
         return expected.toLowerCase() === SIGN.toLowerCase();
     }
 
-    public async listOrders(dto: ListOrdersCommand.IListOrders): Promise<any> {
+    public async listOrders(
+        dto: ListOrdersCommand.IListOrders,
+    ): Promise<ListOrdersCommand.IListOrdersResponse> {
         const options = ListOrdersCommand.RequestListOrdersSchema.parse(dto);
 
         const body: ApiRequestBody = { shopId: this.shopId };
@@ -134,8 +138,11 @@ export class Freekassa {
         return this.request(API.LIST_ORDERS, body);
     }
 
-    public async createOrder(dto: CreateOrderCommand.ICreateOrder): Promise<any> {
+    public async createOrder(
+        dto: CreateOrderCommand.ICreateOrder,
+    ): Promise<CreateOrderCommand.ICreateOrderResponse> {
         const dtoParsed = CreateOrderCommand.RequestCreateOrderSchema.parse(dto);
+
         const body: ApiRequestBody = {
             shopId: this.shopId,
             i: dtoParsed.methodId,
@@ -143,11 +150,8 @@ export class Freekassa {
             ip: dtoParsed.ip,
             amount: dtoParsed.amount,
             currency: this.currency,
+            paymentId: dtoParsed.paymentId,
         };
-
-        if (dtoParsed.paymentId) {
-            body.paymentId = dtoParsed.paymentId;
-        }
 
         if (dtoParsed.phone) {
             body.tel = dtoParsed.phone;
@@ -169,14 +173,9 @@ export class Freekassa {
     }
 
     // Список и создание выплат
-    public async listWithdrawals(options?: {
-        orderId?: number;
-        paymentId?: string;
-        status?: number;
-        dateFrom?: string;
-        dateTo?: string;
-        page?: number;
-    }): Promise<any> {
+    public async listWithdrawals(
+        options?: ListWithdrawalsCommand.IListWithdrawals,
+    ): Promise<ListWithdrawalsCommand.IListWithdrawalsResponse> {
         const body: ApiRequestBody = { shopId: this.shopId };
         if (options) {
             if (options.orderId) {
@@ -201,20 +200,17 @@ export class Freekassa {
         return this.request(API.WITHDRAWALS, body);
     }
 
-    public async createWithdrawal(options: {
-        methodId: number;
-        account: string;
-        amount: number;
-        paymentId?: string;
-    }): Promise<any> {
+    public async createWithdrawal(
+        options: CreateWithdrawalCommand.ICreateWithdrawal,
+    ): Promise<CreateWithdrawalCommand.ICreateWithdrawalResponse> {
         const body: ApiRequestBody = {
             shopId: this.shopId,
             i: options.methodId,
             account: options.account,
             amount: options.amount,
             currency: this.currency,
+            paymentId: options.paymentId,
         };
-        if (options.paymentId) body.paymentId = options.paymentId;
         return this.request(API.CREATE_WITHDRAWAL, body);
     }
 
