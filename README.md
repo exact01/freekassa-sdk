@@ -43,9 +43,6 @@ src/
 - `shopId` - ID вашего магазина
 - `lang` - Язык интерфейса (`ru` или `en`)
 - `currency` - Валюта платежей (`RUB`, `USD`, `EUR`, `UAH`, `KZT`)
-
-### Опциональные параметры
-
 - `payUrl` - URL платежной формы (по умолчанию: `https://pay.fk.money/`)
 - `apiUrl` - URL API (по умолчанию: `https://api.fk.life/v1/`)
 
@@ -63,6 +60,8 @@ const sdk = new FreeKassaSDK({
   shopId: 12345,
   lang: 'ru',
   currency: 'RUB',
+  payUrl: 'https://pay.fk.money/',
+  apiUrl: 'https://api.fk.life/v1/',
 });
 ```
 
@@ -86,12 +85,32 @@ const paymentLink = sdk.createPaymentLink({
 #### Создание заказа
 
 ```typescript
+const bodyWebHook = {
+  MERCHANT_ID: 'yourID',
+  AMOUNT: '10',
+  intid: '196646649',
+  MERCHANT_ORDER_ID: '1746001556454',
+  P_EMAIL: 'customer@example.com',
+  P_PHONE: '+79001234567',
+  CUR_ID: 'yourID',
+  commission: '0',
+  SIGN: 'a242444ec9b2cf63e5fa1ea1ef1bb999',
+};
+
+const verify = freekassa.verifyNotification(body); //bool
+
+console.log(verify);
+```
+
+#### Проверка подписи заказа
+
+```typescript
 const order = await sdk.createOrder({
   methodId: 1,
   email: 'customer@example.com',
   ip: '127.0.0.1',
   amount: 1000,
-  paymentId: 'unique-payment-id', // опционально
+  paymentId: 'unique-payment-id',
   phone: '+79001234567', // опционально
   successUrl: 'https://your-site.com/success', // опционально
   failUrl: 'https://your-site.com/fail', // опционально

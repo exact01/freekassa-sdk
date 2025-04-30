@@ -88,7 +88,7 @@ export class Freekassa {
             q.notification_url = params.notifyUrl;
         }
 
-        return `${this.payUrl}/?${new URLSearchParams(q).toString()}`;
+        return `${this.payUrl}?${new URLSearchParams(q).toString()}`;
     }
 
     // HMAC-SHA256 подпись для API-запросов

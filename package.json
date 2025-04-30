@@ -1,8 +1,9 @@
 {
   "name": "@exact-team/freekassa-sdk",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "freekassa sdk",
   "scripts": {
+    "test": "ts-node test.ts",
     "clean": "rm -rf build",
     "build:backend": "tsc -p tsconfig.backend.json",
     "build:frontend": "tsc -p tsconfig.frontend.json",

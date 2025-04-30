@@ -5,7 +5,7 @@ export const CreateOrderSchema = z.object({
     email: z.string(),
     ip: z.string(),
     amount: z.number(),
-    paymentId: z.string().optional(),
+    paymentId: z.string(),
     phone: z.string().optional(),
     successUrl: z.string().optional(),
     failUrl: z.string().optional(),
