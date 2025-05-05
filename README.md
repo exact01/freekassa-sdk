@@ -18,8 +18,8 @@
 
 FreeKassa SDK - это библиотека для работы с платежной системой FreeKassa, которая позволяет интегрировать платежи в ваше приложение. SDK поддерживает как фронтенд, так и бэкенд части приложения. Если для вас не хватает каких то методов, которые есть в документации отпишите мне, я постараюсь их добавить!
 
-![Обёртка для NestJS](https://github.com/exact01/freekassa-sdk-nestjs)
-![Документация freekassa](https://docs.freekassa.net)
+[Обёртка для NestJS](https://github.com/exact01/freekassa-sdk-nestjs)
+[Документация freekassa](https://docs.freekassa.net)
 
 ## Установка
 
