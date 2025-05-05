@@ -16,7 +16,10 @@
 
 ## Описание
 
-FreeKassa SDK - это библиотека для работы с платежной системой FreeKassa, которая позволяет интегрировать платежи в ваше приложение. SDK поддерживает как фронтенд, так и бэкенд части приложения.
+FreeKassa SDK - это библиотека для работы с платежной системой FreeKassa, которая позволяет интегрировать платежи в ваше приложение. SDK поддерживает как фронтенд, так и бэкенд части приложения. Если для вас не хватает каких то методов, которые есть в документации отпишите мне, я постараюсь их добавить!
+
+![Обёртка для NestJS](https://github.com/exact01/freekassa-sdk-nestjs)
+![Документация freekassa](https://docs.freekassa.net)
 
 ## Установка
 
@@ -31,7 +34,6 @@ src/
 ├── api/          # API-клиенты и методы
 ├── commands/     # Команды для работы с платежами
 ├── interfaces/   # Интерфейсы и типы
-├── models/       # Модели данных
 ├── index.ts      # Точка входа
 └── freekassa.sdk.ts # Основной класс SDK
 ```
@@ -65,9 +67,9 @@ src/
 ### Инициализация
 
 ```typescript
-import { FreeKassaSDK } from '@exact-team/freekassa-sdk';
+import { Freekassa } from '@exact-team/freekassa-sdk';
 
-const sdk = new FreeKassaSDK({
+const sdk = new Freekassa({
   key: 'YOUR_API_KEY',
   secretWord1: 'YOUR_SECRET_WORD_1',
   secretWord2: 'YOUR_SECRET_WORD_2',
@@ -99,26 +101,6 @@ const paymentLink = sdk.createPaymentLink({
 #### Создание заказа
 
 ```typescript
-const bodyWebHook = {
-  MERCHANT_ID: 'yourID',
-  AMOUNT: '10',
-  intid: '196646649',
-  MERCHANT_ORDER_ID: '1746001556454',
-  P_EMAIL: 'customer@example.com',
-  P_PHONE: '+79001234567',
-  CUR_ID: 'yourID',
-  commission: '0',
-  SIGN: 'a242444ec9b2cf63e5fa1ea1ef1bb999',
-};
-
-const verify = freekassa.verifyNotification(body); //bool
-
-console.log(verify);
-```
-
-#### Проверка подписи заказа
-
-```typescript
 const order = await sdk.createOrder({
   methodId: 1,
   email: 'customer@example.com',
@@ -130,6 +112,20 @@ const order = await sdk.createOrder({
   failUrl: 'https://your-site.com/fail', // опционально
   notifyUrl: 'https://your-site.com/notify', // опционально
 });
+```
+
+#### Проверка уведомления
+
+```typescript
+const notification = {
+  MERCHANT_ID: 'yourID',
+  AMOUNT: '10',
+  MERCHANT_ORDER_ID: '1746001556454',
+  SIGN: 'a242444ec9b2cf63e5fa1ea1ef1bb999',
+};
+
+const isValid = sdk.verifyNotification(notification);
+console.log(isValid); // true или false
 ```
 
 #### Получение списка заказов
@@ -162,7 +158,7 @@ const withdrawal = await sdk.createWithdrawal({
 
 ```typescript
 const withdrawals = await sdk.listWithdrawals({
-  orderId: 123, // опционально
+  orderId: 'order-id', // опционально
   paymentId: 'payment-id', // опционально
   status: 1, // опционально
   dateFrom: '2024-01-01', // опционально
@@ -203,37 +199,21 @@ const withdrawalCurrencies = await sdk.getWithdrawalCurrencies();
 const shops = await sdk.getShops();
 ```
 
-### Уведомления
-
-#### Проверка уведомлений
-
-```typescript
-const isValid = sdk.verifyNotification({
-  MERCHANT_ID: '12345',
-  AMOUNT: '1000',
-  MERCHANT_ORDER_ID: 'order-123',
-  SIGN: 'signature',
-});
-```
-
 ## Требования
 
-- Node.js 18+
-- TypeScript 5.0 +
+- Node.js 20+
+- TypeScript 5.0+
 
 ## Разработка
 
 ### Сборка
 
 ```bash
-# Сборка бэкенд части
-npm run build:backend
-
-# Сборка фронтенд части
-npm run build:frontend
-
-# Сборка всего проекта
+# Сборка проекта
 npm run build
+
+# Запуск линтера
+npm run lint
 ```
 
 ### Линтинг
@@ -251,3 +231,7 @@ exact01
 ## Поддержка
 
 Для получения поддержки или сообщения об ошибках, пожалуйста, создайте issue в репозитории проекта.
+
+```
+
+```

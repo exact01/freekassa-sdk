@@ -1,5 +1,4 @@
-export interface ApiRequestBody {
-    [key: string]: any;
+export interface ApiRequestBody extends Record<string, unknown> {
     nonce?: string;
     signature?: string;
 }
