@@ -14,7 +14,8 @@ export namespace ListWithdrawalsCommand {
     export type IListWithdrawalsInput = z.input<typeof RequestListWithdrawalsSchema>;
 
     export const ResponseListWithdrawalsSchema = z.object({
-        type: z.enum(['success']),
+        type: z.enum(['success', 'error']),
+        message: z.string().optional(),
         pages: z.number(),
         orders: z.array(
             z.object({

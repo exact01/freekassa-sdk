@@ -1,8 +1,18 @@
 import { z } from 'zod';
-import { CreateOrderSchema } from '../models/create-order.model';
 
 export namespace CreateOrderCommand {
-    export const RequestCreateOrderSchema = CreateOrderSchema;
+    export const RequestCreateOrderSchema = z.object({
+        methodId: z.number(),
+        email: z.string(),
+        ip: z.string(),
+        amount: z.number(),
+        paymentId: z.string(),
+        phone: z.string().optional(),
+        successUrl: z.string().optional(),
+        failUrl: z.string().optional(),
+        notifyUrl: z.string().optional(),
+    });
+
     export type ICreateOrder = z.infer<typeof RequestCreateOrderSchema>;
     export type ICreateOrderInput = z.input<typeof RequestCreateOrderSchema>;
 

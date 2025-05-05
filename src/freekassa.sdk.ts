@@ -1,5 +1,4 @@
-// src/Freekassa.ts
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 import {
     CreateOrderCommand,
     CreatePaymentLinkCommand,
@@ -8,6 +7,11 @@ import {
     NotificationCommand,
     ListWithdrawalsCommand,
     CreateWithdrawalCommand,
+    GetBalanceCommand,
+    GetCurrenciesCommand,
+    GetCurrenciesStatusCommand,
+    GetWithdrawalsCurrenciesCommand,
+    GetShopsCommand,
 } from './commands';
 import { API } from './api/api';
 import { ApiRequestBody } from './interfaces';
@@ -214,23 +218,35 @@ export class Freekassa {
         return this.request(API.CREATE_WITHDRAWAL, body);
     }
 
-    public async getBalance(): Promise<any> {
-        return this.request(API.BALANCE, { shopId: this.shopId });
+    public async getBalance(): Promise<GetBalanceCommand.IGetBalanceResponse> {
+        return this.request<GetBalanceCommand.IGetBalanceResponse>(API.BALANCE, {
+            shopId: this.shopId,
+        });
     }
 
-    public async getCurrencies(): Promise<any> {
-        return this.request(API.CURRENCIES, { shopId: this.shopId });
+    public async getCurrencies(): Promise<GetCurrenciesCommand.IGetCurrenciesResponse> {
+        return this.request<GetCurrenciesCommand.IGetCurrenciesResponse>(API.CURRENCIES, {
+            shopId: this.shopId,
+        });
     }
 
-    public async getCurrencyStatus(methodId: number): Promise<any> {
-        return this.request(API.CURRENCY_STATUS(methodId), { shopId: this.shopId });
+    public async getCurrencyStatus(
+        methodId: number,
+    ): Promise<GetCurrenciesStatusCommand.IGetCurrenciesStatusResponse> {
+        return this.request<GetCurrenciesStatusCommand.IGetCurrenciesStatusResponse>(
+            API.CURRENCY_STATUS(methodId),
+            { shopId: this.shopId },
+        );
     }
 
-    public async getWithdrawalCurrencies(): Promise<any> {
-        return this.request(API.WITHDRAWAL_CURRENCIES, { shopId: this.shopId });
+    public async getWithdrawalCurrencies(): Promise<GetWithdrawalsCurrenciesCommand.IGetWithdrawalsCurrenciesResponse> {
+        return this.request<GetWithdrawalsCurrenciesCommand.IGetWithdrawalsCurrenciesResponse>(
+            API.WITHDRAWAL_CURRENCIES,
+            { shopId: this.shopId },
+        );
     }
 
-    public async getShops(): Promise<any> {
-        return this.request(API.SHOPS, { shopId: this.shopId });
+    public async getShops(): Promise<GetShopsCommand.IGetShopsResponse> {
+        return this.request<GetShopsCommand.IGetShopsResponse>(API.SHOPS, { shopId: this.shopId });
     }
 }

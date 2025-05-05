@@ -1,7 +1,15 @@
-import { ListOrdersSchema } from '../models';
 import { z } from 'zod';
+
 export namespace ListOrdersCommand {
-    export const RequestListOrdersSchema = ListOrdersSchema;
+    export const RequestListOrdersSchema = z.object({
+        paymentId: z.string().optional(),
+        orderId: z.number().optional(),
+        status: z.union([z.literal(0), z.literal(1), z.literal(8), z.literal(9)]).optional(),
+        dateFrom: z.string().optional(),
+        dateTo: z.string().optional(),
+        page: z.number().optional(),
+    });
+
     export type IListOrders = z.infer<typeof RequestListOrdersSchema>;
     export type IListOrdersInput = z.input<typeof RequestListOrdersSchema>;
 

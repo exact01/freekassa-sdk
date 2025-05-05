@@ -12,10 +12,11 @@ export namespace CreateWithdrawalCommand {
     export type ICreateWithdrawalInput = z.input<typeof RequestCreateWithdrawalSchema>;
 
     export const ResponseCreateWithdrawalSchema = z.object({
-        type: z.enum(['success']),
+        type: z.enum(['success', 'error']),
         data: z.object({
             id: z.number(),
         }),
+        message: z.string().optional(),
     });
     export type ICreateWithdrawalResponse = z.infer<typeof ResponseCreateWithdrawalSchema>;
 }
